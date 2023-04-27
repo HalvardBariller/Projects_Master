@@ -61,10 +61,7 @@ data(Submission)
 sel_a <- which(Data0$Year<=2019)
 sel_b <- which(Data0$Year>2019)
 ```
-  
-  
-  
-    
+
 # Introduction
 
 The main difficulty in this project is that the modeling and the predictions expected occur during a very peculiar period : the COVID crisis. No historical data could have helped encapsulate the sudden variations in electricity load we faced. We thus divided our approach into two phases : the first one was to learn from historical data in "regular periods", thus modeling the usual electricity load, and once that done, we explored various techniques (online learning, ARIMA, experts aggregation, adaptative models...) to readjust the model to the brutal change in trend we faced in these extraordinary conditions.
@@ -241,9 +238,8 @@ This idea will be pursued with weighted GAMs and weighted Boosting models.
 
 ## **2. Monthly model with adaptative ARIMA correction**
 
-To pursue with this idea of leveraging the dataset diversity to improve the final expert aggregation, we trained linear models on specific time window.  
+To pursue with this idea of leveraging the dataset diversity to improve the final expert aggregation, we trained linear models on specific time window.\
 The monthly model is a combination of 12 different linear models, each one fitted specifically on one month. The prediction is then made based on the month considered, calling the proper model.
-
 
 ```{r monthly_model_forecast, include=FALSE}
 monthly_model.forecast <- monthly_model(dataset = Data0[sel_a,], 
@@ -328,7 +324,7 @@ tuned_gam_model.forecast <- readRDS(file = "/Users/halvardbariller/Desktop/M1 MA
 
 ### b. GAM with linear model features
 
-In this scenario, we fitted a GAM using features obtained with the linear model AIC-penalized.  
+In this scenario, we fitted a GAM using features obtained with the linear model AIC-penalized.\
 We also added an argument allowing to consider exponentially decreasing weights on observations.
 
 ```{r gam_linear_features, include=TRUE, out.width = "50%"}
@@ -357,8 +353,8 @@ The GVC/UBRE score is less encouraging as compared to the previous GAM, but just
 ## **5. QGAM model with adaptative ARIMA correction**
 
 ```{r quantile_selection, include=FALSE}
-quantile_selection(train=Data0[sel_a,],cv=Data0$Date[sel_b],
-                   quantile = seq(0.3,0.5,0.05))
+#quantile_selection(train=Data0[sel_a,],cv=Data0$Date[sel_b],
+#                   quantile = seq(0.3,0.5,0.05))
 ```
 
 ```{r naive_qgam, include=TRUE, out.width = "50%"}
@@ -403,7 +399,7 @@ lines(Data0[sel_b,]$Time, pred$fit + 2*pred$se.fit, lwd = 1, col = 2)
 lines(Data0[sel_b,]$Time, pred$fit - 2*pred$se.fit, lwd = 1, col = 2) 
 ```
 
-As we have already explained for the choice of the quantile to minimize, with the covid, the Load was sharply shrunk. Thus, even though we have tried to choose a quantile between 0.3 and 0.5, we notice that the step when the covid began is easily noticeable. Hence, we will also have to train another model to learn from the residuals. 
+As we have already explained for the choice of the quantile to minimize, with the covid, the Load was sharply shrunk. Thus, even though we have tried to choose a quantile between 0.3 and 0.5, we notice that the step when the covid began is easily noticeable. Hence, we will also have to train another model to learn from the residuals.
 
 ```{r temp_refined_qgam_forecast, include=FALSE}
 # temp_refined_qgam_model.forecast <- adaptative_arima(temp_refined_qgam_model, update_frequency = 8)
@@ -533,7 +529,7 @@ summary(agg_MLewa_strong)
 
 ## Exhaustive experts' aggregation
 
-The second and last experts' aggregation submission was made using all of the predictors built through our research process.  
+The second and last experts' aggregation submission was made using all of the predictors built through our research process.\
 Once again, we tested several aggregation rules, and the results improved once more.
 
 ```{r exhaustive_experts_aggregation, include=FALSE}
@@ -568,11 +564,10 @@ summary(agg_MLprod_exhaustive)
 
 # Findings
 
-
-To conclude, we have tried to consider this problem with as many different ways as we could, relying strongly on the belief that the only way to properly address this modeling problem was to efficiently capture the variations throughout time.  
-Indeed, far from simple seasonal cycles, the COVID period has strongly interfered with the electricity load, and it was thus needed to readjust previously learned model.  
-Our first breakthrough in terms of performance was when we started using the adaptative ARIMA correction, updating the ARIMA model as days went by. This has proven to be so efficient that almost all of our predictors are corrected with this function in this notebook.  
-When realising the importance online learning would have in this problem, we quickly began to wonder how to use experts' advice to improve our forecastings. Building on that, we tried different models, different loss functions, different techniques so as to explain as most variance as we could with not one but with more than ten models.  
+To conclude, we have tried to consider this problem with as many different ways as we could, relying strongly on the belief that the only way to properly address this modeling problem was to efficiently capture the variations throughout time.\
+Indeed, far from simple seasonal cycles, the COVID period has strongly interfered with the electricity load, and it was thus needed to readjust previously learned model.\
+Our first breakthrough in terms of performance was when we started using the adaptative ARIMA correction, updating the ARIMA model as days went by. This has proven to be so efficient that almost all of our predictors are corrected with this function in this notebook.\
+When realising the importance online learning would have in this problem, we quickly began to wonder how to use experts' advice to improve our forecastings. Building on that, we tried different models, different loss functions, different techniques so as to explain as most variance as we could with not one but with more than ten models.\
 Eventually, this proved to be efficient considering the results we obtained. Moreover, our approach has been fruitful since we observe nearly a uniform repartition of the weights between the 13 experts, showing how much model diversity mattered.
 
 ```{r submission, include=FALSE}
@@ -592,7 +587,6 @@ Regarding feature engineering, additional data was collected composed of Google'
 Secondly, we mentioned tuning GAM based on variable selection obtained with Random Forests. Another idea to pursue this kind of explanatory variable selections could be to select based on the order of importance when performing PCA. Moreover, the problem of computing a gam over all the variables, apart from the computation cost, is that we risk overfitting our model. Then, we could just reduce the dimension of the explanatory variables to capture the most important information and relation between the variables, and apply a gam over these main PCA dimensions.
 
 Thirdly, for computational reasons, we did not use Kalman filter on the tuned GAM, these last being very heavy. It would interesting though to assess the relevancy of this techniques.
-
 
 ```{=html}
 <!--
