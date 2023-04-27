@@ -1,0 +1,9 @@
+corrplot
+car
+GGally
+FactoMineR
+factoextra
+mclust
+ClustOfVar
+DT
+dplyr

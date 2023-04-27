@@ -1,0 +1,13 @@
+Package: ProjetLoadForecasting
+Title: Load Forecasting project R package
+Version: 0.0
+Authors@R: 
+    person("Halvard", "Bariller", , "halvard.bariller@universite-paris-saclay.fr", role = c("aut", "cre"))
+Description: R functions structuring the Load Forecasting project
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
+LazyData: false
