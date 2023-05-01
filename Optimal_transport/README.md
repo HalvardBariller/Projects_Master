@@ -9,4 +9,4 @@ It is structured in four parts:
 - Geodesics and Wasserstein flow
 
 
-This project was undertaken with Virgile BERTRAND and Elona LAHMI as part of a course on Numerical Optimisation given by the Pr. Luca NENNA.
+This project was undertaken with Virgile BERTRAND and Elona LAHMI as part of the *Numerical Optimisation* course given by the Pr. Luca NENNA.

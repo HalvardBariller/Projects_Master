@@ -10,7 +10,7 @@ The coronavirus disease 2019 (COVID-19) pandemic has urged many governments in t
 
 ## **Model**
 
-This project was undertaken with Ángel REYERO LOBO, and won the challenge proposed as part of the Predictive Modelling course given by the Pr. Yanig GOUDE (Senior Researcher, EDF R&D).
+This project was undertaken with Ángel REYERO LOBO, and won the challenge proposed as part of the *Predictive Modelling* course given by the Pr. Yanig GOUDE (Senior Researcher, EDF R&D).
 
 The functions have been encoded as an R library named 'ProjectLoadForecasting'.
 The trained models have been saved separately.
