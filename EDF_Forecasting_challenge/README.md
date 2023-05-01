@@ -1,6 +1,9 @@
 # Load Forecasting During the COVID Period
-Day ahead forecasting of electricity load from April 2020 to January 2021.
+Day ahead forecasting of electricity load from April 2020 to January 2021.  
+*Halvard BARILLER & Ángel REYERO LOBO - March 2023*
 
+The report can be found at the following link:
+https://raw.githack.com/HalvardBariller/Projects_Master/main/EDF_Forecasting_challenge/Final_Report.html
 
 ## **Introduction**
 The coronavirus disease 2019 (COVID-19) pandemic has urged many governments in the world to enforce a strict lockdown where all nonessential businesses are closed and citizens are ordered to stay at home. One of the consequences of this policy is a significant change in electricity consumption patterns. Since load forecasting models rely on calendar or meteorological information and are trained on historical data, they fail to capture the significant break caused by the lockdown and have exhibited poor performances since the beginning of the pandemic. The proposed challenge aims at improving forecasts during this period by proposing new methods but also new open data.
